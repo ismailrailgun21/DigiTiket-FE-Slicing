@@ -1,16 +1,21 @@
 <template>
   <section class="appbar">
     <b-navbar toggleable="xl" type="light" variant="white">
-      <div class="d-flex justify-content-between collapse-nav w-100 container">
+      <div
+        class="d-flex justify-content-between collapse-nav w-100 container-md"
+      >
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
         <Logo />
         <div class="py-3">
-          <button class="btn">
+          <b-button v-b-toggle.collapse-1 variant="?" class="btn">
             <img src="../assets/images/search.svg" />
-          </button>
+          </b-button>
         </div>
       </div>
-      <b-collapse id="nav-collapse" :is-nav="windowWidth > 1200 ? true : false" >
+      <b-collapse id="collapse-1" class="mt-2 container-md">
+        <SearchBar class="w-100" :placeholder="'Temukan Event, Wahana Wisata, Virtual Tour, Lain-lain.'"/>
+      </b-collapse>
+      <b-collapse id="nav-collapse" :is-nav="windowWidth > 1200 ? true : false">
         <div class="d-block appbar">
           <div
             class="d-flex w-100 container p-3 align-items-center justify-content-between header-lg"
@@ -47,8 +52,8 @@ export default {
   },
   data() {
     return {
-      windowWidth: window.innerWidth
-    }
+      windowWidth: window.innerWidth,
+    };
   },
   mounted() {
     this.$nextTick(this.screenResize());
@@ -63,7 +68,7 @@ export default {
     resizeHandler() {
       this.windowWidth = window.innerWidth;
     },
-  }
+  },
 };
 </script>
 
@@ -76,9 +81,9 @@ hr {
   border: none;
   outline-style: none;
 }
-.header-lg{
-    margin-top: 0 !important;
-  }
+.header-lg {
+  margin-top: 0 !important;
+}
 .appbar {
   position: fixed;
   background-color: white !important;
@@ -102,7 +107,7 @@ hr {
   .header-lg * {
     display: none !important;
   }
-  .header-lg{
+  .header-lg {
     margin-top: 3rem !important;
   }
 }

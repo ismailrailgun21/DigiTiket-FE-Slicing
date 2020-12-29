@@ -192,9 +192,8 @@ export default {
 <style scoped>
 hr {
   margin: 0;
-  margin-top: 1rem;
 }
-h2 {
+h4 {
   font-size: 19px;
   font-weight: 400;
 }

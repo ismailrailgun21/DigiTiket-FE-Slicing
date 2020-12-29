@@ -1,5 +1,5 @@
 <template>
-  <div class="container mt-3">
+  <div class="container-md mt-3">
     <div class="bg-tip p-2 d-flex">
       <div class="mx-3 my-3">
         <InfoTip />

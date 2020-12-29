@@ -1,5 +1,5 @@
 <template>
-  <section class="preview container d-lg-flex mt-3 w-100">
+  <section class="preview container-md d-lg-flex mt-3 w-100">
     <div class="left-side d-flex pt-5 col-lg-8">
       <div class="w-100 d-flex img-container">
         <div class="preview-img col-lg-9 p-0">

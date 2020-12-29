@@ -4,7 +4,7 @@
     <div class="body">
       <Preview />
       <Tip />
-      <div class="container d-lg-flex justify-content-between">
+      <div class="container-md d-lg-flex justify-content-between">
         <ContentInfo class="col-lg-6 p-0 pr-2"/>
         <TotalTiket class="col-lg-6 p-0 pl-2"/>
       </div>
@@ -50,5 +50,10 @@ export default {
 .search-input{
   box-shadow: 0px 1px 4px 1px rgba(0, 0, 0, 0.1);
   border-color: 1px solid #E0E0E0 !important;
+}
+@media(max-width:1200px){
+  .body{
+    margin-top: 90px;
+  }
 }
 </style>
