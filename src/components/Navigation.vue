@@ -23,7 +23,7 @@
         <Dropdown :lokasi="lokasi" v-if="show" />
       </b-nav-item>
     </b-navbar-nav>
-    <div class="text-lg-right col-lg-3 m-0 p-0">
+    <div class="text-lg-right col-xl-3 m-0 p-0">
       <button class="btn tambah-tiket primary-bg px-lg-5">
         <img src="../assets/images/tambah_tiket.svg" />
         <span class="ml-3 text-center">Buat Tiket</span>

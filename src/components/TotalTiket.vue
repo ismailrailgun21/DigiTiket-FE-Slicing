@@ -5,72 +5,33 @@
       <h5 class="col-6 text-center py-3 text-accent-1">Tentukan Tanggal</h5>
       <h5 class="active col-6 text-center py-3 text-accent-1">Pilih Tiket</h5>
     </div>
-    <div class="content mb-4 bg-white">
-      <h4 class="px-5 py-3 m-0">Tiket Dewasa</h4>
-      <hr />
-      <div class="px-5 pt-3 d-flex justify-content-between">
-        <p>09 Sep 2020, 06:00-20:30 WIB</p>
-        <p>09 Sep 2020, 06:00-20:30 WIB</p>
-      </div>
-      <a href="#" class="px-5 mb-5">Detail Package</a>
-      <hr />
-      <div class="d-flex align-items-center justify-content-end py-3">
-        <div class="total mr-3">
-          <h6>IDR {{ tiket.tiketDewasa.harga }}</h6>
-        </div>
-        <div class="d-flex mr-5">
-          <button class="btn nud" @click="subTiketDewasa()">-</button>
-          <div class="px-5 nud nud-value">{{ tiket.tiketDewasa.jumlah }}</div>
-          <button class="btn nud" @click="addTiketDewasa()">+</button>
-        </div>
-      </div>
-    </div>
-    <div class="content mb-4 bg-white">
-      <h4 class="px-5 py-3 m-0">Tiket Anak-Anak (3 - 7 Tahun)</h4>
-      <hr />
-      <div class="px-5 pt-3 d-flex justify-content-between">
-        <p>09 Sep 2020, 06:00-20:30 WIB</p>
-        <p>09 Sep 2020, 06:00-20:30 WIB</p>
-      </div>
-      <a href="#" class="px-5 mb-5">Detail Package</a>
-      <hr />
-      <div class="d-flex align-items-center justify-content-end py-3">
-        <div class="total mr-3">
-          <h6>IDR {{ tiket.tiketAnak.harga }}</h6>
-        </div>
-        <div class="d-flex mr-5">
-          <button class="btn nud" @click="subTiketAnak()">-</button>
-          <div class="px-5 nud nud-value">{{ tiket.tiketAnak.jumlah }}</div>
-          <button class="btn nud" @click="addTiketAnak()">+</button>
-        </div>
-      </div>
-    </div>
-    <div class="content mb-4 bg-white">
-      <h4 class="px-5 py-3 m-0">Tiket Bayi (0 - 2 Tahun)</h4>
-      <hr />
-      <div class="px-5 pt-3 d-flex justify-content-between">
-        <p>09 Sep 2020, 06:00-20:30 WIB</p>
-        <p>09 Sep 2020, 06:00-20:30 WIB</p>
-      </div>
-      <a href="#" class="px-5 mb-5">Detail Package</a>
-      <hr />
-      <div class="d-flex align-items-center justify-content-end py-3">
-        <div class="total mr-3">
-          <h6>IDR {{ tiket.tiketBayi.harga }}</h6>
-        </div>
-        <div class="d-flex mr-5">
-          <button class="btn nud" @click="subTiketBayi()">-</button>
-          <div class="px-5 nud nud-value">{{ tiket.tiketBayi.jumlah }}</div>
-          <button class="btn nud" @click="addTiketBayi()">+</button>
-        </div>
-      </div>
-    </div>
+    <OrderCard 
+      :title="'Tiket Dewasa'"
+      :tiket="tiket.tiketDewasa"
+      :detailPackage="'https://digitiket.com/detail-package/semeru'"
+    >
+      <Order :tiket="tiket.tiketDewasa" />
+    </OrderCard>
+    <OrderCard 
+      :title="'Tiket Anak-Anak (3 - 7 Tahun)'"
+      :tiket="tiket.tiketAnak"
+      :detailPackage="'https://digitiket.com/detail-package/semeru'"
+    >
+      <Order :tiket="tiket.tiketAnak" />
+    </OrderCard>
+    <OrderCard 
+      :title="'Tiket Bayi (0 - 2 Tahun)'"
+      :tiket="tiket.tiketBayi"
+      :detailPackage="'https://digitiket.com/detail-package/semeru'"
+    >
+      <Order :tiket="tiket.tiketBayi" />
+    </OrderCard>
     <div class="step d-flex justify-content-between">
       <div
         class="col-6 text-center py-3 d-flex justify-content-between total-bayar"
       >
         <span>Total</span>
-        <span>{{ total }}</span>
+        <span v-text="totalBayar"></span>
       </div>
       <button
         class="btn primary-bg col-5 ml-3 text-center py-3"
@@ -83,105 +44,65 @@
 </template>
 
 <script>
+import OrderCard from "./OrderCard";
+import Order from "./Order";
+
 export default {
   name: "TotalTiket",
+  components: {
+    OrderCard,
+    Order,
+  },
   data() {
     return {
-      total: 0,
+      currency: new Intl.NumberFormat("id-ID", {
+        style: "currency",
+        currency: "IDR",
+        minimumFractionDigits: 0,
+      }),
       tiket: {
         tiketDewasa: {
           jumlah: 0,
           harga: 40000,
+          tanggalBerlaku: '09 Sep 2020, 06:00-20:30 WIB'
         },
         tiketAnak: {
           jumlah: 0,
           harga: 30000,
+          tanggalBerlaku: '09 Sep 2020, 06:00-20:30 WIB'
         },
         tiketBayi: {
           jumlah: 0,
           harga: 0,
+          tanggalBerlaku: '09 Sep 2020, 06:00-20:30 WIB'
         },
       },
     };
   },
+  computed: {
+    totalBayar() {
+      const tiketDewasa =
+        this.tiket.tiketDewasa.jumlah * this.tiket.tiketDewasa.harga * 1000;
+      const tiketAnak =
+        this.tiket.tiketAnak.jumlah * this.tiket.tiketAnak.harga * 1000;
+      const tiketBayi =
+        this.tiket.tiketBayi.jumlah * this.tiket.tiketBayi.harga * 1000;
+      return this.currency.format(tiketDewasa + tiketAnak + tiketBayi).slice(2);
+    },
+  },
   mounted() {
-    const currency = new Intl.NumberFormat("id-ID", {
-      style: "currency",
-      currency: "IDR",
-      minimumFractionDigits: 0,
-    });
-    this.tiket.tiketDewasa.harga = currency
+    this.tiket.tiketDewasa.harga = this.currency
       .format(this.tiket.tiketDewasa.harga)
       .slice(2);
-    this.tiket.tiketAnak.harga = currency
+    this.tiket.tiketAnak.harga = this.currency
       .format(this.tiket.tiketAnak.harga)
       .slice(2);
-    this.tiket.tiketBayi.harga = currency
+    this.tiket.tiketBayi.harga = this.currency
       .format(this.tiket.tiketBayi.harga)
       .slice(2);
   },
 
   methods: {
-    addTiketDewasa() {
-      this.tiket.tiketDewasa.jumlah++;
-      const tiketDewasa =
-        this.tiket.tiketDewasa.jumlah * this.tiket.tiketDewasa.harga * 1000;
-      const tiketAnak =
-        this.tiket.tiketAnak.jumlah * this.tiket.tiketAnak.harga * 1000;
-      const tiketBayi =
-        this.tiket.tiketBayi.jumlah * this.tiket.tiketBayi.harga * 1000;
-      this.total = tiketDewasa + tiketAnak + tiketBayi;
-    },
-    addTiketAnak() {
-      this.tiket.tiketAnak.jumlah++;
-      const tiketDewasa =
-        this.tiket.tiketDewasa.jumlah * this.tiket.tiketDewasa.harga * 1000;
-      const tiketAnak =
-        this.tiket.tiketAnak.jumlah * this.tiket.tiketAnak.harga * 1000;
-      const tiketBayi =
-        this.tiket.tiketBayi.jumlah * this.tiket.tiketBayi.harga * 1000;
-      this.total = tiketDewasa + tiketAnak + tiketBayi;
-    },
-    addTiketBayi() {
-      this.tiket.tiketBayi.jumlah++;
-      const tiketDewasa =
-        this.tiket.tiketDewasa.jumlah * this.tiket.tiketDewasa.harga * 1000;
-      const tiketAnak =
-        this.tiket.tiketAnak.jumlah * this.tiket.tiketAnak.harga * 1000;
-      const tiketBayi =
-        this.tiket.tiketBayi.jumlah * this.tiket.tiketBayi.harga * 1000;
-      this.total = tiketDewasa + tiketAnak + tiketBayi;
-    },
-    subTiketDewasa() {
-      if (this.tiket.tiketDewasa.jumlah > 0) this.tiket.tiketDewasa.jumlah--;
-      const tiketDewasa =
-        this.tiket.tiketDewasa.jumlah * this.tiket.tiketDewasa.harga * 1000;
-      const tiketAnak =
-        this.tiket.tiketAnak.jumlah * this.tiket.tiketAnak.harga * 1000;
-      const tiketBayi =
-        this.tiket.tiketBayi.jumlah * this.tiket.tiketBayi.harga * 1000;
-      this.total = tiketDewasa + tiketAnak + tiketBayi;
-    },
-    subTiketAnak() {
-      if (this.tiket.tiketAnak.jumlah > 0) this.tiket.tiketAnak.jumlah--;
-      const tiketDewasa =
-        this.tiket.tiketDewasa.jumlah * this.tiket.tiketDewasa.harga * 1000;
-      const tiketAnak =
-        this.tiket.tiketAnak.jumlah * this.tiket.tiketAnak.harga * 1000;
-      const tiketBayi =
-        this.tiket.tiketBayi.jumlah * this.tiket.tiketBayi.harga * 1000;
-      this.total = tiketDewasa + tiketAnak + tiketBayi;
-    },
-    subTiketBayi() {
-      if (this.tiket.tiketBayi.jumlah > 0) this.tiket.tiketBayi.jumlah--;
-      const tiketDewasa =
-        this.tiket.tiketDewasa.jumlah * this.tiket.tiketDewasa.harga * 1000;
-      const tiketAnak =
-        this.tiket.tiketAnak.jumlah * this.tiket.tiketAnak.harga * 1000;
-      const tiketBayi =
-        this.tiket.tiketBayi.jumlah * this.tiket.tiketBayi.harga * 1000;
-      this.total = tiketDewasa + tiketAnak + tiketBayi;
-    },
     next() {
       this.tiket.tiketBayi.jumlah = this.tiket.tiketAnak.jumlah = this.tiket.tiketDewasa.jumlah = this.total = 0;
     },
@@ -190,21 +111,7 @@ export default {
 </script>
 
 <style scoped>
-hr {
-  margin: 0;
-}
-h4 {
-  font-size: 19px;
-  font-weight: 400;
-}
-.content p {
-  font-size: 14px;
-  font-weight: 400;
-}
-h6 {
-  font-size: 14px;
-  font-weight: 700;
-}
+
 .total-tiket {
   background-color: #f6f6f6;
   position: relative;
@@ -228,31 +135,5 @@ h6 {
   background: #e5e5e5;
   border: 1px solid #ccc9c9;
   border-radius: 3px;
-}
-
-.nud {
-  border-radius: 3px;
-  border: 1px solid #eadcf2;
-  color: #672c89;
-  font-size: 14px;
-  font-weight: 700;
-}
-.nud:focus {
-  background-color: #eadcf2;
-}
-.nud:first-child {
-  border-top-right-radius: 0px;
-  border-bottom-right-radius: 0px;
-}
-.nud:last-child {
-  border-top-left-radius: 0px;
-  border-bottom-left-radius: 0px;
-}
-.nud-value {
-  border-radius: 0px;
-  font-size: 12px;
-  font-weight: 700;
-  padding: 8px 0;
-  color: #000;
 }
 </style>
