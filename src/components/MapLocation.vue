@@ -10,7 +10,7 @@ export default {
     const accessToken =
       "pk.eyJ1Ijoia2lkZG9zdGEiLCJhIjoiY2tjMzhrMzVsMDl0aDJ2cDNyNHB2aXk1ZCJ9.jsFKSTK8sflOBy4Cf-V1Ig";
     return {
-      address: "Jl. Dharmawangsa Raya, Satriajaya, Tambun Utara, Bekasi",
+      address: "Watersplash Dharmawangsa Raya Residence, Satriajaya, Tambun Utara, Bekasi",
       accessToken,
     };
   },

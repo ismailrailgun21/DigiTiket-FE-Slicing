@@ -5,14 +5,7 @@
         <h2>Virtual Tour Semeru</h2>
         <hr />
         <p>
-          Fasilitas yang di tawarkan di Water Splash Darmawangsa pengunjung bisa
-          menjadi member dan keuntungannya setiap pembelian tiket masuk
-          mendapatkan potongan harga sebesar 2000 sampai 3000 rupiah dari harga
-          tiket masuk normal. Water Splash Darmawangsa Residence menyediakan 3
-          kolam renang diantaranya, 1 kolam renang untuk dewasa atau remaja, dan
-          yang 2 kolam renang khusus untuk anak-anak, tersedia pula seluncuran
-          air yang di katagorikan untuk anak-anak karena memiliki ketinggian
-          yang cukup rendah.
+          {{ mainInfo }}
         </p>
         <div class="d-flex justify-content-end">
           <span>Share</span>
@@ -79,6 +72,11 @@ export default {
   components: {
     MapLocation,
   },
+  data() {
+    return {
+      mainInfo: "Fasilitas yang di tawarkan di Water Splash Darmawangsa pengunjung bisa menjadi member dan keuntungannya setiap pembelian tiket masukmendapatkan potongan harga sebesar 2000 sampai 3000 rupiah dari harga tiket masuk normal. Water Splash Darmawangsa Residence menyediakan 3 kolam renang diantaranya, 1 kolam renang untuk dewasa atau remaja, dan yang 2 kolam renang khusus untuk anak-anak, tersedia pula seluncuran air yang di katagorikan untuk anak-anak karena memiliki ketinggian yang cukup rendah."
+    }
+  }
 };
 </script>
 <style scoped>
